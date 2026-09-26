@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ACOMPAÑA</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f2f7ef;
+
+            color: #111;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =========================
+           ENCABEZADO
+        ========================= */
+
+        header {
+
+            background: #70b34d;
+
+            color: white;
+
+            padding: 18px 25px;
+
+        }
+
+
+        .header {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .logo {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .contact-button {
+
+            background: white;
+
+            color: #315c27;
+
+            border: none;
+
+            border-radius: 12px;
+
+            padding: 13px 20px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =========================
+           CONTENEDOR
+        ========================= */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 28px auto;
+
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,.07);
+
+        }
+
+
+        h2 {
+
+            color: #315c27;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            color: #666;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        /* =========================
+           MAPA
+        ========================= */
+
+        .map-container {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 520px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            background: #e8eee5;
+
+            border: 1px solid #d3e1ce;
+
+        }
+
+
+        #mapFrame {
+
+            width: 100%;
+
+            height: 100%;
+
+            border: 0;
+
+            display: block;
+
+        }
+
+
+        .map-loading {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            background: white;
+
+            padding: 15px 20px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,.15);
+
+            color: #315c27;
+
+            font-weight: bold;
+
+            z-index: 2;
+
+        }
+
+
+        .location-button {
+
+            position: absolute;
+
+            right: 18px;
+
+            bottom: 18px;
+
+            z-index: 5;
+
+            border: none;
+
+            background: white;
+
+            color: #315c27;
+
+            padding: 13px 18px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,.2);
+
+            cursor: pointer;
+
+        }
+
+
+        /* =========================
+           ESTADO
+        ========================= */
+
+        .status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .status-dot {
+
+            width: 16px;
+
+            height: 16px;
+
+            border-radius: 50%;
+
+            background: #aaa;
+
+        }
+
+
+        .status-dot.active {
+
+            background: #70b34d;
+
+            box-shadow:
+                0 0 0 7px
+                rgba(112,179,77,.15);
+
+        }
+
+
+        .status-dot.arrived {
+
+            background: #315c27;
+
+        }
+
+
+        .status-dot.danger {
+
+            background: #111;
+
+            box-shadow:
+                0 0 0 7px
+                rgba(0,0,0,.12);
+
+        }
+
+
+        .status-title {
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+        }
+
+
+        .status-time {
+
+            color: #777;
+
+            margin-top: 5px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =========================
+           BOTONES
+        ========================= */
+
+        .actions {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+
+        }
+
+
+        .action {
+
+            border: none;
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .start {
+
+            background: #70b34d;
+
+            color: white;
+
+        }
+
+
+        .arrived {
+
+            background: #dceecf;
+
+            color: #315c27;
+
+        }
+
+
+        .help {
+
+            grid-column: 1 / 3;
+
+            background: #111;
+
+            color: white;
+
+            border: 3px solid #70b34d;
+
+        }
+
+
+        .help small {
+
+            display: block;
+
+            margin-top: 7px;
+
+            color: #ccc;
+
+            font-weight: normal;
+
+        }
+
+
+        /* =========================
+           DATOS
+        ========================= */
+
+        .data {
+
+            background: #f1f6ee;
+
+            border-radius: 13px;
+
+            padding: 17px;
+
+            line-height: 2;
+
+            font-size: 14px;
+
+        }
+
+
+        .data strong {
+
+            color: #315c27;
+
+        }
+
+
+        /* =========================
+           CONFIGURACIÓN
+        ========================= */
+
+        #settings {
+
+            display: none;
+
+        }
+
+
+        #settings.visible {
+
+            display: block;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 10px;
+
+            margin-bottom: 15px;
+
+            font-size: 16px;
+
+        }
+
+
+        .save {
+
+            width: 100%;
+
+            background: #70b34d;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        #savedContact {
+
+            margin-top: 12px;
+
+            background: #edf6e8;
+
+            color: #315c27;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            display: none;
+
+        }
+
+
+        /* =========================
+           EMERGENCIA
+        ========================= */
+
+        #emergency {
+
+            display: none;
+
+            border-left: 6px solid #111;
+
+        }
+
+
+        #emergency.visible {
+
+            display: block;
+
+        }
+
+
+        .danger-title {
+
+            color: #111;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+
+        #emergencyText {
+
+            background: #f2f2f2;
+
+            border-radius: 12px;
+
+            padding: 16px;
+
+            margin-top: 15px;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+
+        }
+
+
+        .sms {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #70b34d;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+        }
+
+
+        footer {
+
+            text-align: center;
+
+            color: #777;
+
+            padding: 20px;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media(max-width: 650px) {
+
+            .logo {
+
+                font-size: 23px;
+
+            }
+
+
+            .header {
+
+                gap: 10px;
+
+            }
+
+
+            .contact-button {
+
+                padding: 10px;
+
+                font-size: 12px;
+
+            }
+
+
+            .map-container {
+
+                height: 420px;
+
+            }
+
+
+            .actions {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .help {
+
+                grid-column: auto;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     ENCABEZADO
+===================================== -->
+
+<header>
+
+    <div class="header">
+
+        <div class="logo">
+            ACOMPAÑA
+        </div>
+
+
+        <button
+            class="contact-button"
+            onclick="mostrarConfiguracion()"
+        >
+            Persona de confianza
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<div class="container">
+
+
+<!-- =====================================
+     PERSONA DE CONFIANZA
+===================================== -->
+
+<div
+    id="settings"
+    class="card"
+>
+
+    <h2>
+        Persona de confianza
+    </h2>
+
+
+    <p class="subtitle">
+        Registra el número que recibirá la alerta.
+    </p>
+
+
+    <label>
+        Nombre
+    </label>
+
+
+    <input
+        id="contactName"
+        type="text"
+        placeholder="Nombre de la persona"
+    >
+
+
+    <label>
+        Número de teléfono
+    </label>
+
+
+    <input
+        id="contactPhone"
+        type="tel"
+        placeholder="6140000000"
+    >
+
+
+    <button
+        class="save"
+        onclick="guardarContacto()"
+    >
+        Guardar contacto
+    </button>
+
+
+    <div id="savedContact"></div>
+
+</div>
+
+
+
+<!-- =====================================
+     MAPA
+===================================== -->
+
+<div class="card">
+
+    <h2>
+        Mi ubicación
+    </h2>
+
+
+    <p class="subtitle">
+        Tu ubicación se actualizará durante el viaje.
+    </p>
+
+
+    <div class="map-container">
+
+        <div
+            id="mapLoading"
+            class="map-loading"
+        >
+            Cargando mapa...
+        </div>
+
+
+        <iframe
+            id="mapFrame"
+            title="Mapa de ubicación"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+
+
+        <button
+            class="location-button"
+            onclick="centrarUbicacion()"
+        >
+            Mi ubicación
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     ESTADO
+===================================== -->
+
+<div class="card">
+
+    <div class="status">
+
+        <div
+            id="statusDot"
+            class="status-dot"
+        ></div>
+
+
+        <div>
+
+            <div
+                id="statusTitle"
+                class="status-title"
+            >
+                Viaje detenido
+            </div>
+
+
+            <div
+                id="statusTime"
+                class="status-time"
+            >
+                Presiona "Iniciar viaje"
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     ACCIONES
+===================================== -->
+
+<div class="actions">
+
+
+    <button
+        class="action start"
+        onclick="iniciarViaje()"
+    >
+        Iniciar viaje
+    </button>
+
+
+    <button
+        class="action arrived"
+        onclick="llegue()"
+    >
+        Ya llegué
+    </button>
+
+
+    <button
+        class="action help"
+        onclick="pedirAyuda()"
+    >
+
+        Necesito ayuda
+
+        <small>
+            Envía una alerta con tu ubicación actual
+        </small>
+
+    </button>
+
+</div>
+
+
+
+<!-- =====================================
+     INFORMACIÓN
+===================================== -->
+
+<div class="card">
+
+    <h2>
+        Información de ubicación
+    </h2>
+
+
+    <br>
+
+
+    <div class="data">
+
+        <strong>
+            Latitud:
+        </strong>
+
+        <span id="latitude">
+            Esperando...
+        </span>
+
+
+        <br>
+
+
+        <strong>
+            Longitud:
+        </strong>
+
+        <span id="longitude">
+            Esperando...
+        </span>
+
+
+        <br>
+
+
+        <strong>
+            Última actualización:
+        </strong>
+
+        <span id="lastUpdate">
+            ---
+        </span>
+
+
+        <br>
+
+
+        <strong>
+            GPS:
+        </strong>
+
+        <span id="gpsStatus">
+            Esperando permiso...
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     EMERGENCIA
+===================================== -->
+
+<div
+    id="emergency"
+    class="card"
+>
+
+    <div class="danger-title">
+        PERSONA EN PELIGRO
+    </div>
+
+
+    <div id="emergencyText"></div>
+
+
+    <button
+        class="sms"
+        onclick="abrirSMS()"
+    >
+        Abrir mensaje SMS
+    </button>
+
+</div>
+
+
+</div>
+
+
+
+<footer>
+
+    ACOMPAÑA
+
+</footer>
+
+
+
+<script>
+
+/* =====================================
+   VARIABLES
+===================================== */
+
+let latitude = null;
+
+let longitude = null;
+
+let viajeActivo = false;
+
+let watchID = null;
+
+let mensajeEmergencia = "";
+
+
+/* =====================================
+   MAPA INICIAL
+===================================== */
+
+function cargarMapaInicial() {
+
+    const mapa =
+
+        "https://www.google.com/maps?q=" +
+        "28.6353,-106.0889" +
+        "&z=10" +
+        "&output=embed";
+
+
+    document.getElementById(
+        "mapFrame"
+    ).src = mapa;
+
+
+    document.getElementById(
+        "mapLoading"
+    ).style.display = "none";
+
+}
+
+
+/* =====================================
+   OBTENER UBICACIÓN
+===================================== */
+
+function obtenerUbicacion() {
+
+    if (!navigator.geolocation) {
+
+        document.getElementById(
+            "gpsStatus"
+        ).innerText =
+            "GPS no disponible";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "gpsStatus"
+    ).innerText =
+        "Obteniendo ubicación...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        actualizarUbicacion,
+
+        errorGPS,
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 15000,
+
+            maximumAge: 0
+
+        }
+
+    );
+
+}
+
+
+/* =====================================
+   ACTUALIZAR UBICACIÓN
+===================================== */
+
+function actualizarUbicacion(position) {
+
+    latitude =
+        position.coords.latitude;
+
+
+    longitude =
+        position.coords.longitude;
+
+
+    document.getElementById(
+        "latitude"
+    ).innerText =
+        latitude.toFixed(6);
+
+
+    document.getElementById(
+        "longitude"
+    ).innerText =
+        longitude.toFixed(6);
+
+
+    document.getElementById(
+        "lastUpdate"
+    ).innerText =
+        new Date().toLocaleTimeString();
+
+
+    document.getElementById(
+        "gpsStatus"
+    ).innerText =
+        "Ubicación disponible";
+
+
+    actualizarMapa();
+
+}
+
+
+/* =====================================
+   ACTUALIZAR MAPA
+===================================== */
+
+function actualizarMapa() {
+
+    if (
+        latitude === null ||
+        longitude === null
+    ) {
+
+        return;
+
+    }
+
+
+    const mapa =
+
+        "https://www.google.com/maps?q=" +
+
+        latitude +
+
+        "," +
+
+        longitude +
+
+        "&z=17" +
+
+        "&output=embed";
+
+
+    document.getElementById(
+        "mapFrame"
+    ).src = mapa;
+
+
+    document.getElementById(
+        "mapLoading"
+    ).style.display = "none";
+
+}
+
+
+/* =====================================
+   ERROR GPS
+===================================== */
+
+function errorGPS(error) {
+
+    console.log(error);
+
+
+    document.getElementById(
+        "gpsStatus"
+    ).innerText =
+        "No se pudo obtener la ubicación";
+
+
+    if (error.code === 1) {
+
+        alert(
+            "Debes permitir el acceso a tu ubicación para utilizar esta función."
+        );
+
+    }
+
+
+    if (error.code === 2) {
+
+        alert(
+            "No se pudo determinar tu ubicación."
+        );
+
+    }
+
+
+    if (error.code === 3) {
+
+        alert(
+            "La ubicación tardó demasiado en responder."
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   INICIAR VIAJE
+===================================== */
+
+function iniciarViaje() {
+
+    if (viajeActivo) {
+
+        alert(
+            "El viaje ya está activo."
+        );
+
+        return;
+
+    }
+
+
+    viajeActivo = true;
+
+
+    document.getElementById(
+        "statusTitle"
+    ).innerText =
+        "Viaje en curso";
+
+
+    document.getElementById(
+        "statusTime"
+    ).innerText =
+        "Iniciado: " +
+        new Date().toLocaleTimeString();
+
+
+    document.getElementById(
+        "statusDot"
+    ).className =
+        "status-dot active";
+
+
+    obtenerUbicacion();
+
+
+    /*
+       Seguimiento continuo
+    */
+
+    watchID =
+        navigator.geolocation.watchPosition(
+
+            actualizarUbicacion,
+
+            errorGPS,
+
+            {
+
+                enableHighAccuracy: true,
+
+                maximumAge: 3000,
+
+                timeout: 10000
+
+            }
+
+        );
+
+}
+
+
+/* =====================================
+   YA LLEGUÉ
+===================================== */
+
+function llegue() {
+
+    if (!viajeActivo) {
+
+        alert(
+            "No hay un viaje activo."
+        );
+
+        return;
+
+    }
+
+
+    viajeActivo = false;
+
+
+    if (watchID !== null) {
+
+        navigator.geolocation.clearWatch(
+            watchID
+        );
+
+        watchID = null;
+
+    }
+
+
+    document.getElementById(
+        "statusTitle"
+    ).innerText =
+        "Ya llegué";
+
+
+    document.getElementById(
+        "statusTime"
+    ).innerText =
+        "Llegada: " +
+        new Date().toLocaleTimeString();
+
+
+    document.getElementById(
+        "statusDot"
+    ).className =
+        "status-dot arrived";
+
+}
+
+
+/* =====================================
+   CENTRAR UBICACIÓN
+===================================== */
+
+function centrarUbicacion() {
+
+    if (
+        latitude === null ||
+        longitude === null
+    ) {
+
+        obtenerUbicacion();
+
+        return;
+
+    }
+
+
+    actualizarMapa();
+
+}
+
+
+/* =====================================
+   MOSTRAR CONFIGURACIÓN
+===================================== */
+
+function mostrarConfiguracion() {
+
+    const panel =
+        document.getElementById(
+            "settings"
+        );
+
+
+    if (
+        panel.style.display === "block"
+    ) {
+
+        panel.style.display = "none";
+
+    }
+
+    else {
+
+        panel.style.display = "block";
+
+    }
+
+}
+
+
+/* =====================================
+   GUARDAR CONTACTO
+===================================== */
+
+function guardarContacto() {
+
+    const nombre =
+        document.getElementById(
+            "contactName"
+        ).value.trim();
+
+
+    const telefono =
+        document.getElementById(
+            "contactPhone"
+        ).value.trim();
+
+
+    if (!telefono) {
+
+        alert(
+            "Escribe un número de teléfono."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "contactName",
+        nombre
+    );
+
+
+    localStorage.setItem(
+        "contactPhone",
+        telefono
+    );
+
+
+    mostrarContactoGuardado();
+
+
+    alert(
+        "Contacto guardado correctamente."
+    );
+
+}
+
+
+/* =====================================
+   MOSTRAR CONTACTO GUARDADO
+===================================== */
+
+function mostrarContactoGuardado() {
+
+    const nombre =
+        localStorage.getItem(
+            "contactName"
+        );
+
+
+    const telefono =
+        localStorage.getItem(
+            "contactPhone"
+        );
+
+
+    if (!telefono) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "contactName"
+    ).value =
+        nombre || "";
+
+
+    document.getElementById(
+        "contactPhone"
+    ).value =
+        telefono;
+
+
+    const caja =
+        document.getElementById(
+            "savedContact"
+        );
+
+
+    caja.style.display =
+        "block";
+
+
+    caja.innerText =
+        "Contacto guardado: " +
+        (nombre || telefono);
+
+}
+
+
+/* =====================================
+   PEDIR AYUDA
+===================================== */
+
+function pedirAyuda() {
+
+    const telefono =
+        localStorage.getItem(
+            "contactPhone"
+        );
+
+
+    if (!telefono) {
+
+        alert(
+            "Primero registra una persona de confianza."
+        );
+
+
+        mostrarConfiguracion();
+
+        return;
+
+    }
+
+
+    if (
+        latitude === null ||
+        longitude === null
+    ) {
+
+        alert(
+            "Todavía no tenemos tu ubicación. Espera unos segundos e inténtalo nuevamente."
+        );
+
+
+        obtenerUbicacion();
+
+        return;
+
+    }
+
+
+    const nombre =
+        localStorage.getItem(
+            "contactName"
+        ) ||
+        "Persona de confianza";
+
+
+    const hora =
+        new Date().toLocaleString();
+
+
+    const enlace =
+
+        "https://www.google.com/maps?q=" +
+
+        latitude +
+
+        "," +
+
+        longitude;
+
+
+    mensajeEmergencia =
+
+`PERSONA EN PELIGRO
+
+${nombre}, necesito ayuda.
+
+Hora:
+${hora}
+
+Mi ubicación actual:
+${enlace}
+
+Latitud:
+${latitude.toFixed(6)}
+
+Longitud:
+${longitude.toFixed(6)}`;
+
+
+    document.getElementById(
+        "emergency"
+    ).classList.add(
+        "visible"
+    );
+
+
+    document.getElementById(
+        "emergencyText"
+    ).innerText =
+        mensajeEmergencia;
+
+
+    document.getElementById(
+        "statusTitle"
+    ).innerText =
+        "ALERTA DE EMERGENCIA";
+
+
+    document.getElementById(
+        "statusTime"
+    ).innerText =
+        "Alerta generada: " +
+        new Date().toLocaleTimeString();
+
+
+    document.getElementById(
+        "statusDot"
+    ).className =
+        "status-dot danger";
+
+
+    /*
+       Abrimos SMS
+    */
+
+    abrirSMS();
+
+}
+
+
+/* =====================================
+   ABRIR SMS
+===================================== */
+
+function abrirSMS() {
+
+    const telefono =
+        localStorage.getItem(
+            "contactPhone"
+        );
+
+
+    if (!telefono) {
+
+        alert(
+            "No hay un número registrado."
+        );
+
+        return;
+
+    }
+
+
+    if (!mensajeEmergencia) {
+
+        return;
+
+    }
+
+
+    const texto =
+        encodeURIComponent(
+            mensajeEmergencia
+        );
+
+
+    const smsURL =
+        "sms:" +
+        telefono +
+        "?body=" +
+        texto;
+
+
+    window.location.href =
+        smsURL;
+
+}
+
+
+/* =====================================
+   CARGAR AL INICIAR
+===================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        cargarMapaInicial();
+
+        mostrarContactoGuardado();
+
+        /*
+           Pedimos ubicación después
+           de cargar la página.
+        */
+
+        obtenerUbicacion();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
